@@ -1,0 +1,17 @@
+# QuestaSim generated files
+work/
+transcript
+vsim.wlf
+*.log
+*.ucdb
+*.vstf
+
+# DPI compiled library (compiled on the server, not portable)
+sim/uvm_dpi/
+
+# Questa optimization
+qrun.out/
+*.vdb
+
+# OS files
+.DS_Store

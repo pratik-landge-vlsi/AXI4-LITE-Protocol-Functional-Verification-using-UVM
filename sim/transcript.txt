@@ -1,0 +1,50 @@
+========================================
+ Compiling RTL + Testbench...
+========================================
+vlog -sv +incdir+/mnt/apps/public/COE/mg_apps/questa2026.1/questasim/verilog_src/uvm-1.2/src /mnt/apps/public/COE/mg_apps/questa2026.1/questasim/verilog_src/uvm-1.2/src/uvm_pkg.sv +incdir+../tb ../rtl/axil_reg_if_wr.v ../rtl/axil_reg_if_rd.v ../rtl/axi_lite_slave.v ../tb/top.sv
+QuestaSim-64 vlog 2026.1 Compiler 2026.01 Jan 25 2026
+Start time: 13:38:38 on Jun 03,2026
+vlog -sv "+incdir+/mnt/apps/public/COE/mg_apps/questa2026.1/questasim/verilog_src/uvm-1.2/src" /mnt/apps/public/COE/mg_apps/questa2026.1/questasim/verilog_src/uvm-1.2/src/uvm_pkg.sv "+incdir+../tb" ../rtl/axil_reg_if_wr.v ../rtl/axil_reg_if_rd.v ../rtl/axi_lite_slave.v ../tb/top.sv 
+** Note: (vlog-220) '/mnt/apps/public/COE/mg_apps/questa2026.1/questasim/modelsim.ini' is used as the ini file.
+-- Compiling package uvm_pkg (uvm-1.2 Built-in)
+-- Compiling module axil_reg_if_wr
+-- Compiling module axil_reg_if_rd
+-- Compiling module axil_reg_if
+-- Compiling package top_sv_unit
+-- Importing package uvm_pkg (uvm-1.2 Built-in)
+-- Compiling interface axi_lite_if
+-- Compiling module top
+
+Top level modules:
+	top
+End time: 13:38:41 on Jun 03,2026, Elapsed time: 0:00:03
+Errors: 0, Warnings: 0
+========================================
+ Compilation done.
+========================================
+========================================
+ Running Regression: 5 seeds
+========================================
+--- Seed: 12345 ---
+# UVM_INFO ../tb/axi_lite_scoreboard.sv(90) @ 6605000: uvm_test_top.env.scb [SCB]   SCOREBOARD FINAL REPORT  |  PASS: 162  |  FAIL: 0
+# UVM_INFO ../tb/axi_lite_scoreboard.sv(96) @ 6605000: uvm_test_top.env.scb [SCB]   RESULT: ALL TRANSACTIONS PASSED
+# UVM_ERROR :    0
+--- Seed: 99999 ---
+# UVM_INFO ../tb/axi_lite_scoreboard.sv(90) @ 6605000: uvm_test_top.env.scb [SCB]   SCOREBOARD FINAL REPORT  |  PASS: 162  |  FAIL: 0
+# UVM_INFO ../tb/axi_lite_scoreboard.sv(96) @ 6605000: uvm_test_top.env.scb [SCB]   RESULT: ALL TRANSACTIONS PASSED
+# UVM_ERROR :    0
+--- Seed: 42 ---
+# UVM_INFO ../tb/axi_lite_scoreboard.sv(90) @ 6605000: uvm_test_top.env.scb [SCB]   SCOREBOARD FINAL REPORT  |  PASS: 162  |  FAIL: 0
+# UVM_INFO ../tb/axi_lite_scoreboard.sv(96) @ 6605000: uvm_test_top.env.scb [SCB]   RESULT: ALL TRANSACTIONS PASSED
+# UVM_ERROR :    0
+--- Seed: 777 ---
+# UVM_INFO ../tb/axi_lite_scoreboard.sv(90) @ 6605000: uvm_test_top.env.scb [SCB]   SCOREBOARD FINAL REPORT  |  PASS: 162  |  FAIL: 0
+# UVM_INFO ../tb/axi_lite_scoreboard.sv(96) @ 6605000: uvm_test_top.env.scb [SCB]   RESULT: ALL TRANSACTIONS PASSED
+# UVM_ERROR :    0
+--- Seed: 31415 ---
+# UVM_INFO ../tb/axi_lite_scoreboard.sv(90) @ 6605000: uvm_test_top.env.scb [SCB]   SCOREBOARD FINAL REPORT  |  PASS: 162  |  FAIL: 0
+# UVM_INFO ../tb/axi_lite_scoreboard.sv(96) @ 6605000: uvm_test_top.env.scb [SCB]   RESULT: ALL TRANSACTIONS PASSED
+# UVM_ERROR :    0
+========================================
+ Regression complete.
+========================================

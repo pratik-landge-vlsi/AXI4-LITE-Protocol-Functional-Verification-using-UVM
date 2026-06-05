@@ -78,51 +78,50 @@ axil_reg_if #( //dut name
 .reg_rd_data      (reg_rd_data),
 .reg_rd_wait      (reg_rd_wait),
 .reg_rd_ack       (reg_rd_ack)
-  );
+);
 
 
 //REGISTER BANK - 8 REGISTERS, 32 BITS WIDE EACH
 // 8 registers, each 32 bits wide
-  // Addresses: 0x00, 0x04, 0x08, 0x0C, 0x10, 0x14, 0x18, 0x1C
-  logic [31:0] regbank [0:7];
+// Addresses: 0x00, 0x04, 0x08, 0x0C, 0x10, 0x14, 0x18, 0x1C
+logic [31:0] regbank [0:7];
+// Write logic
+always @(posedge ACLK) begin
+if (~ARESETn) begin
+// On reset: clear all registers to 0
+for (int i = 0; i < 8; i++)
+regbank[i] <= 32'h0;
+reg_wr_ack <= 1'b0;
+reg_rd_ack <= 1'b0;
+reg_rd_data <= 32'h0;
+end
+else begin
+// Default: deassert acks every cycle
+reg_wr_ack  <= 1'b0;
+reg_rd_ack  <= 1'b0;
 
-  // Write logic
-  always @(posedge ACLK) begin
-    if (~ARESETn) begin
-      // On reset: clear all registers to 0
-      for (int i = 0; i < 8; i++)
-        regbank[i] <= 32'h0;
-      reg_wr_ack <= 1'b0;
-      reg_rd_ack <= 1'b0;
-      reg_rd_data <= 32'h0;
-    end
-    else begin
-      // Default: deassert acks every cycle
-      reg_wr_ack  <= 1'b0;
-      reg_rd_ack  <= 1'b0;
+// Write operation
+// reg_wr_en goes high when DUT has both address and data ready
+if (reg_wr_en) begin
+// Apply WSTRB byte by byte — only write enabled bytes
+if (reg_wr_strb[0]) regbank[reg_wr_addr[4:2]][7:0]   <= reg_wr_data[7:0];
+if (reg_wr_strb[1]) regbank[reg_wr_addr[4:2]][15:8]  <= reg_wr_data[15:8];
+if (reg_wr_strb[2]) regbank[reg_wr_addr[4:2]][23:16] <= reg_wr_data[23:16];
+if (reg_wr_strb[3]) regbank[reg_wr_addr[4:2]][31:24] <= reg_wr_data[31:24];
+reg_wr_ack <= 1'b1;  // tell DUT: write done
+end
 
-      // Write operation
-      // reg_wr_en goes high when DUT has both address and data ready
-      if (reg_wr_en) begin
-        // Apply WSTRB byte by byte — only write enabled bytes
-        if (reg_wr_strb[0]) regbank[reg_wr_addr[4:2]][7:0]   <= reg_wr_data[7:0];
-        if (reg_wr_strb[1]) regbank[reg_wr_addr[4:2]][15:8]  <= reg_wr_data[15:8];
-        if (reg_wr_strb[2]) regbank[reg_wr_addr[4:2]][23:16] <= reg_wr_data[23:16];
-        if (reg_wr_strb[3]) regbank[reg_wr_addr[4:2]][31:24] <= reg_wr_data[31:24];
-        reg_wr_ack <= 1'b1;  // tell DUT: write done
-      end
+// Read operation
+if (reg_rd_en) begin
+reg_rd_data <= regbank[reg_rd_addr[4:2]];
+reg_rd_ack  <= 1'b1;  // tell DUT: read done, data valid
+end
+end
+end
 
-      // Read operation
-      if (reg_rd_en) begin
-        reg_rd_data <= regbank[reg_rd_addr[4:2]];
-        reg_rd_ack  <= 1'b1;  // tell DUT: read done, data valid
-      end
-    end
-  end
-
-  assign reg_wr_wait = 1'b0;
-  assign reg_rd_wait = 1'b0;
-  
+assign reg_wr_wait = 1'b0;
+assign reg_rd_wait = 1'b0;
+ 
 //passing intrerface to UVM
 initial begin
 uvm_config_db #(virtual axi_lite_if  #(.data_width(32), .addr_width(32)))::set (null, "uvm_test_top*", "vif", axi_if);//storing virtual interfaces in config database

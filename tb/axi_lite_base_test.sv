@@ -21,6 +21,7 @@ super.build_phase (phase);
 //sqr = axi_lite_sequencer::type_id::create("sqr", this);
 //drv = axi_lite_driver::type_id::create("drv", this);
 //agt = axi_lite_agent::type_id::create("agt", this);
+uvm_config_db#(int)::set(this, "*", "num_transactions", 50);
 env = axi_lite_env::type_id::create("env", this);
 endfunction
 

@@ -117,7 +117,7 @@ endfunction
 task body();
 axi_lite_write_rdbck_seq wr_rb_seq;
 int n = num_transactions;
-void'(uvm_config_db #(int)::get(null, "", "num_transaction", n));
+void'(uvm_config_db #(int)::get(null, "", "num_transactions", n));
 `uvm_info("RAND_REG", $sformatf("Starting Random Regression: %0d write-readback transactions", num_transactions), UVM_LOW)
 repeat(n) begin
 wr_rb_seq = axi_lite_write_rdbck_seq::type_id::create("wr_rb_seq");

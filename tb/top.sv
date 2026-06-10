@@ -80,6 +80,25 @@ axil_reg_if #( //dut name
 .reg_rd_ack       (reg_rd_ack)
 );
 
+// Bind SVA module to the AXI interface signals
+axi_lite_sva u_sva (
+.ACLK    (ACLK),
+.ARESETn (ARESETn),
+.AWVALID (axi_if.AWVALID),
+.AWREADY (axi_if.AWREADY),
+.AWADDR  (axi_if.AWADDR),
+.WVALID  (axi_if.WVALID),
+.WREADY  (axi_if.WREADY),
+.BVALID  (axi_if.BVALID),
+.BREADY  (axi_if.BREADY),
+.ARVALID (axi_if.ARVALID),
+.ARREADY (axi_if.ARREADY),
+.ARADDR  (axi_if.ARADDR),
+.RVALID  (axi_if.RVALID),
+.RREADY  (axi_if.RREADY),
+.BRESP   (axi_if.BRESP),
+.RRESP   (axi_if.RRESP)
+);
 
 //REGISTER BANK - 8 REGISTERS, 32 BITS WIDE EACH
 // 8 registers, each 32 bits wide
